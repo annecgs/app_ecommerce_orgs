@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nuvigator/next.dart';
 import 'package:proj/components/orgs_highlights_card.dart';
 import 'package:proj/components/orgs_cards_list.dart';
 import 'package:proj/components/orgs_search_bar.dart';
@@ -9,9 +10,12 @@ import 'package:proj/core/app_colors.dart';
 import 'package:proj/core/app_images.dart';
 import 'package:proj/models/producer_model.dart';
 import 'package:proj/repository/data.dart';
-import 'package:proj/screens/producer_details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+
+  final onProducerDetailsClick;
+  HomeScreen({this.onProducerDetailsClick});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -41,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   IconButton(
                     color: Colors.transparent,
                     icon: Icon(Icons.menu, color: AppColors.green), // set your color here
-                    onPressed: () => _scaffoldKey.currentState.openDrawer(),
+                    onPressed: () => _scaffoldKey.currentState?.openDrawer(),
                   ),
                 ],
               ),
@@ -70,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 future: _generateHighlightsCards(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return snapshot.data;
+                    return snapshot.data!;
                   } else {
                     return Center(
                       child: CircularProgressIndicator(),
@@ -92,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 future: _generateSpotlightCards(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    return snapshot.data;
+                    return snapshot.data!;
                   } else {
                     return Center(
                       child: CircularProgressIndicator(),
@@ -131,6 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future _generateProducerList(BuildContext context) async {
+    final nuvigator = Nuvigator.of(context);
     List<Widget> children = [];
     final data = await Data.getJson();
     final producers = data["producers"];
@@ -140,10 +145,9 @@ class _HomeScreenState extends State<HomeScreen> {
       final prod = Producer.fromJson(producers[producer]);
 
       children.add(OrgsStoresCard(
-        action: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ProducerDetailsScreen(producer: prod)),
-        ),
+        //action: () => Navigator.pushNamed(context, 'produce-details', arguments: prod),
+        //action: () => nuvigator?.open('producer-details', parameters: {"producer":prod}),
+        action: () => widget.onProducerDetailsClick({"producer":prod}),
         img: prod.logo,
         distance: prod.distance,
         title: prod.name,

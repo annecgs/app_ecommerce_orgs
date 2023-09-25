@@ -10,9 +10,9 @@ class OrgsPackagesCard extends StatelessWidget {
   final String price;
 
   OrgsPackagesCard({
-    @required this.title,
-    @required this.description,
-    @required this.price,
+    required this.title,
+    required this.description,
+    required this.price,
   });
 
   @override

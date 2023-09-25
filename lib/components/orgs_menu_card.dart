@@ -7,9 +7,9 @@ class OrgsMenuCard extends StatelessWidget {
   final void Function() action;
 
   OrgsMenuCard({
-    @required this.icon,
-    @required this.text,
-    @required this.action,
+    required this.icon,
+    required this.text,
+    required this.action,
   }): assert(icon != null),
       assert(text != null);
 

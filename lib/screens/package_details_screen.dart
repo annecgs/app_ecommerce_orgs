@@ -10,9 +10,10 @@ class PackageDetailsScreen extends StatelessWidget {
   final Package package;
   final Producer producer;
 
+
   PackageDetailsScreen({
-    @required this.package,
-    @required this.producer,
+    required this.package,
+    required this.producer,
   });
 
   @override
@@ -146,7 +147,7 @@ class PackageDetailsScreen extends StatelessWidget {
         OrgsPackagesCard(
           description: "",
           title: item,
-          price: null
+          price: '0.00'
       ));
     }
 

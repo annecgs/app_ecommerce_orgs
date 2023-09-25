@@ -4,13 +4,15 @@ import 'package:proj/core/app_colors.dart';
 import 'package:proj/core/app_images.dart';
 import 'package:proj/models/package_model.dart';
 import 'package:proj/models/producer_model.dart';
-import 'package:proj/screens/package_details_screen.dart';
+import 'package:nuvigator/next.dart';
 
 class ProducerDetailsScreen extends StatelessWidget {
 
   final Producer producer;
+  final onPackageDetailsClick;
   ProducerDetailsScreen({
-    @required this.producer
+    required this.producer,
+    this.onPackageDetailsClick,
   });
 
   @override
@@ -102,19 +104,16 @@ class ProducerDetailsScreen extends StatelessWidget {
     );
   }
 
-  List _generatePackageList(BuildContext context, List packages) {
+  List<Widget> _generatePackageList(BuildContext context, List packages) {
+    final nuvigator = Nuvigator.of(context);
     List<Widget> children = [];
     for(final package in packages) {
       final pack = Package.fromJson(package);
 
       children.add(InkWell(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PackageDetailsScreen(
-            package: pack,
-            producer: producer,
-          )),
-        ),
+        //onTap: () => Navigator.pushNamed(context, 'packed-details', arguments: {'package':package, 'producer':producer}),
+        //onTap: () => nuvigator?.open('packed-details', parameters: {'package':package, 'producer':producer}),
+        onTap: () => onPackageDetailsClick({"package":package, "producer":producer}),
         child: OrgsPackagesCard(
           title: pack.title,
           price: pack.price,

@@ -10,11 +10,11 @@ class OrgsHighlightsCard extends StatelessWidget {
   final void Function() btnAction;
 
   OrgsHighlightsCard({
-    @required this.img,
-    @required this.title,
-    @required this.description,
-    @required this.color,
-    @required this.btnAction
+    required this.img,
+    required this.title,
+    required this.description,
+    required this.color,
+    required this.btnAction
   }): assert(img != null),
       assert(title != null),
       assert(description != null),

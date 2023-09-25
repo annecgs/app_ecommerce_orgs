@@ -9,10 +9,10 @@ class OrgsStoresCard extends StatelessWidget {
   final void Function() action;
 
   OrgsStoresCard({
-    @required this.img,
-    @required this.title,
-    this.distance,
-    @required this.action
+    required this.img,
+    required this.title,
+    required this.distance,
+    required this.action
   }): assert(img != null),
       assert(title != null),
       assert(action != null);
